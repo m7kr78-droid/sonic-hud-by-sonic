@@ -1,0 +1,22 @@
+name: sonic-hud-ipa
+on:
+  workflow_dispatch:
+jobs:
+  ipa:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build unsigned IPA
+        run: |
+          set -e
+          ROOT="${GITHUB_WORKSPACE}"
+          if [ -f "SonicHUD.xcodeproj/project.pbxproj" ]; then
+            cd .
+          elif [ -f "gro/جديد/sonic_hud/SonicHUD.xcodeproj/project.pbxproj" ]; then
+            cd "gro/جديد/sonic_hud"
+          fi
+          sh build-ipa.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sonic-hud-ipa
+          path: "**/sonic-hud.ipa"

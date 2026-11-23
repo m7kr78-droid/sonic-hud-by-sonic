@@ -1,0 +1,15 @@
+name: ipa
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  ipa:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build unsigned IPA
+        run: bash build-ipa.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sonic-hud-ipa
+          path: sonic-hud.ipa
