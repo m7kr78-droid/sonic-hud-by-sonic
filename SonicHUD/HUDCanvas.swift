@@ -1,8 +1,8 @@
 import UIKit
 
 enum HUDCanvas {
-    static let width = 520
-    static let height = 72
+    static let width = 300
+    static let height = 40
 
     static func image(stats: DeviceStats) -> UIImage {
         let format = UIGraphicsImageRendererFormat.default()
@@ -14,26 +14,31 @@ enum HUDCanvas {
             let rect = CGRect(origin: .zero, size: size)
             let cg = ctx.cgContext
             cg.clear(rect)
-            let bg = UIColor(red: 0.04, green: 0.05, blue: 0.08, alpha: 0.32)
+            let bg = UIColor(red: 0.04, green: 0.05, blue: 0.08, alpha: 0.14)
             cg.setFillColor(bg.cgColor)
-            UIBezierPath(roundedRect: rect.insetBy(dx: 4, dy: 6), cornerRadius: 16).fill()
+            UIBezierPath(roundedRect: rect.insetBy(dx: 2, dy: 4), cornerRadius: 10).fill()
 
             let hzText = stats.gameHz > 0 ? "\(stats.gameHz)Hz" : "--Hz"
             let cpu = String(format: "%.0f%%", stats.cpuPercent)
             let heat = stats.thermalArabic
 
-            draw(hzText, x: 18, y: 18, size: 28, color: color(forHz: stats.gameHz), weight: .bold)
-            draw(cpu, x: 150, y: 20, size: 24, color: color(forLoad: stats.cpuPercent), weight: .semibold)
-            draw(heat, x: 250, y: 20, size: 24, color: color(forThermal: stats.thermal), weight: .semibold)
-            draw("sonic", x: 420, y: 24, size: 16, color: UIColor(white: 1, alpha: 0.45), weight: .medium)
+            draw(hzText, x: 10, y: 9, size: 16, color: color(forHz: stats.gameHz), weight: .bold)
+            draw(cpu, x: 88, y: 10, size: 15, color: color(forLoad: stats.cpuPercent), weight: .semibold)
+            draw(heat, x: 148, y: 10, size: 15, color: color(forThermal: stats.thermal), weight: .semibold)
+            draw("sonic", x: 248, y: 12, size: 11, color: UIColor(white: 1, alpha: 0.38), weight: .medium)
         }
     }
 
     private static func draw(_ text: String, x: CGFloat, y: CGFloat, size: CGFloat, color: UIColor, weight: UIFont.Weight) {
         let font = UIFont.systemFont(ofSize: size, weight: weight)
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor(white: 0, alpha: 0.7)
+        shadow.shadowOffset = CGSize(width: 0, height: 1)
+        shadow.shadowBlurRadius = 2
         (text as NSString).draw(at: CGPoint(x: x, y: y), withAttributes: [
             .font: font,
-            .foregroundColor: color
+            .foregroundColor: color,
+            .shadow: shadow
         ])
     }
 

@@ -1,5 +1,6 @@
 import ReplayKit
 import CoreMedia
+import QuartzCore
 
 @_silgen_name("notify_register_check")
 func notify_register_check(_ name: UnsafePointer<CChar>, _ outToken: UnsafeMutablePointer<Int32>) -> Int32

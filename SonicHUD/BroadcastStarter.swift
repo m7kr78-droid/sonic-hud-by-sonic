@@ -27,7 +27,6 @@ final class BroadcastStarter: NSObject, RPBroadcastActivityViewControllerDelegat
     func broadcastActivityViewController(_ broadcastActivityViewController: RPBroadcastActivityViewController, didFinishWith broadcastController: RPBroadcastController?, error: Error?) {
         broadcastActivityViewController.dismiss(animated: true)
         guard let broadcastController, error == nil else { return }
-        broadcastController.isMicrophoneEnabled = false
         self.controller = broadcastController
         broadcastController.startBroadcast { _ in }
     }
