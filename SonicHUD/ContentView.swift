@@ -3,7 +3,7 @@ import Combine
 
 final class HUDModel: ObservableObject {
     @Published var stats = DeviceStats(
-        screenHz: 60, cpuPercent: 0, ramPercent: 0,
+        gameHz: 0, cpuPercent: 0, ramPercent: 0,
         thermal: .nominal, batteryPercent: -1
     )
     @Published var pipOn = false
@@ -12,7 +12,7 @@ final class HUDModel: ObservableObject {
     func start() {
         UIApplication.shared.isIdleTimerDisabled = true
         tick()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
             self?.tick()
         }
     }
@@ -44,24 +44,24 @@ struct ContentView: View {
                     .foregroundColor(Color.white.opacity(0.55))
 
                 HStack(spacing: 12) {
-                    card("هيرتز", "\(model.stats.screenHz)", "Hz")
-                    card("استخدام", String(format: "%.0f", model.stats.cpuPercent), "% CPU")
+                    card("هيرتز اللعبة", model.stats.gameHz > 0 ? "\(model.stats.gameHz)" : "--", "Hz")
+                    card("استخدام", String(format: "%.0f", model.stats.cpuPercent), "%")
                     card("حرارة", model.stats.thermalArabic, "")
                 }
                 .padding(.horizontal, 16)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("شغّل العرض، اطلع من البرنامج وافتح اللعبة. المربع يضل فوق الشاشة.")
+                    Text("شغّل العرض، بعدين اختر sonic hud للبث عشان الهيرتز يصير من اللعبة. المربع صغير وشفاف فوق الشاشة.")
                         .font(.system(size: 16))
                         .foregroundColor(Color.white.opacity(0.78))
-                    Text("هيرتز الشاشة هو اللي الجهاز يعطيه للعبة (مثل 120). الاستخدام والحرارة من الجهاز كامل.")
+                    Text("يطلع شريط تسجيل أحمر من آبل، هذا طبيعي وهو اللي يخلي الهيرتز من اللعب مو من الشاشة.")
                         .font(.system(size: 14))
                         .foregroundColor(Color.white.opacity(0.5))
                 }
                 .padding(.horizontal, 22)
 
                 Button(action: togglePiP) {
-                    Text(model.pipOn ? "وقف العرض فوق اللعبة" : "شغّل فوق اللعبة")
+                    Text(model.pipOn ? "وقف العرض" : "شغّل فوق اللعبة")
                         .font(.system(size: 20, weight: .semibold))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
@@ -97,9 +97,13 @@ struct ContentView: View {
 
     private func togglePiP() {
         if PiPController.shared.isRunning {
+            BroadcastStarter.shared.stop()
             PiPController.shared.stop()
         } else {
             PiPController.shared.start()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                BroadcastStarter.shared.askToStart()
+            }
         }
         model.objectWillChange.send()
     }

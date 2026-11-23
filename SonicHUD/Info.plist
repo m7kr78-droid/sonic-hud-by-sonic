@@ -19,7 +19,9 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>ما نستخدم المايك. البث بس عشان هيرتز اللعبة.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>

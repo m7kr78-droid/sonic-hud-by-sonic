@@ -3,7 +3,7 @@ import UIKit
 import Darwin
 
 struct DeviceStats {
-    var screenHz: Int
+    var gameHz: Int
     var cpuPercent: Double
     var ramPercent: Double
     var thermal: ProcessInfo.ThermalState
@@ -33,7 +33,7 @@ final class StatsMonitor {
         UIDevice.current.isBatteryMonitoringEnabled = true
         let level = UIDevice.current.batteryLevel
         return DeviceStats(
-            screenHz: max(UIScreen.main.maximumFramesPerSecond, 60),
+            gameHz: GameHzBus.current(),
             cpuPercent: cpuUsage(),
             ramPercent: ramUsage(),
             thermal: ProcessInfo.processInfo.thermalState,
