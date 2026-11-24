@@ -22,8 +22,6 @@
 		A100000000000000000013 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A200000000000000000013 /* ReplayKit.framework */; };
 		A100000000000000000014 /* SonicHUDBroadcast.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A200000000000000000012 /* SonicHUDBroadcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A100000000000000000015 /* GameHz.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000000000000000015 /* GameHz.swift */; };
-		A100000000000000000016 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A200000000000000000017 /* Security.framework */; };
-		A100000000000000000017 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A200000000000000000017 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +65,6 @@
 		A200000000000000000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A200000000000000000015 /* GameHz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHz.swift; sourceTree = "<group>"; };
 		A200000000000000000016 /* BroadcastStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastStarter.swift; sourceTree = "<group>"; };
-		A200000000000000000017 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,7 +75,6 @@
 				A100000000000000000007 /* AVKit.framework in Frameworks */,
 				A100000000000000000008 /* AVFoundation.framework in Frameworks */,
 				A100000000000000000011 /* ReplayKit.framework in Frameworks */,
-				A100000000000000000016 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +83,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A100000000000000000013 /* ReplayKit.framework in Frameworks */,
-				A100000000000000000017 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +121,6 @@
 				A200000000000000000007 /* AVKit.framework */,
 				A200000000000000000008 /* AVFoundation.framework */,
 				A200000000000000000013 /* ReplayKit.framework */,
-				A200000000000000000017 /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

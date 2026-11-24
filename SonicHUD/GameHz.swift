@@ -1,6 +1,5 @@
 import Foundation
 import Darwin
-import Security
 import Dispatch
 
 enum GameHzBus {
@@ -148,19 +147,8 @@ enum GameHzBus {
         }
     }
 
-    private static func groupId() -> String {
-        if let task = SecTaskCreateFromSelf(nil) {
-            var err: Unmanaged<CFError>?
-            if let value = SecTaskCopyValueForEntitlement(task, "com.apple.security.application-groups" as CFString, &err) as? [String],
-               let first = value.first, !first.isEmpty {
-                return first
-            }
-        }
-        return fallbackGroup
-    }
-
     private static func defaults() -> UserDefaults? {
-        UserDefaults(suiteName: groupId())
+        UserDefaults(suiteName: fallbackGroup)
     }
 
     private static func publishDefaults(_ hz: Int) {
