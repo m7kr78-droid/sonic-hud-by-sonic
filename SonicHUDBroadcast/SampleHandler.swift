@@ -9,6 +9,7 @@ func notify_set_state(_ token: Int32, _ state: UInt64) -> Int32
 @_silgen_name("notify_post")
 func notify_post(_ name: UnsafePointer<CChar>) -> Int32
 
+@objc(SampleHandler)
 final class SampleHandler: RPBroadcastSampleHandler {
     private var frames = 0
     private var last = CACurrentMediaTime()

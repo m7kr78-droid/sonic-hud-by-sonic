@@ -51,10 +51,10 @@ struct ContentView: View {
                 .padding(.horizontal, 16)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("شغّل العرض، بعدين اختر sonic hud للبث عشان الهيرتز يصير من اللعبة. المربع صغير وشفاف فوق الشاشة.")
+                    Text("شغّل العرض يطلع مربع صغير فوق اللعبة. هيرتز اللعبة من زر التسجيل الأخضر تحت، تختار sonic hud من قائمة الآيفون.")
                         .font(.system(size: 16))
                         .foregroundColor(Color.white.opacity(0.78))
-                    Text("يطلع شريط تسجيل أحمر من آبل، هذا طبيعي وهو اللي يخلي الهيرتز من اللعب مو من الشاشة.")
+                    Text("إذا طلعت صفحة Live Stream من آب ستور، ارجع واضغط زر التسجيل الأخضر. لا تختار شيء من المتجر.")
                         .font(.system(size: 14))
                         .foregroundColor(Color.white.opacity(0.5))
                 }
@@ -69,6 +69,25 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
+                .padding(.horizontal, 22)
+
+                HStack(spacing: 12) {
+                    BroadcastPickerView()
+                        .frame(width: 56, height: 56)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("هيرتز اللعبة")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(.white)
+                        Text("اضغط الدائرة واختر sonic hud")
+                            .font(.system(size: 13))
+                            .foregroundColor(Color.white.opacity(0.55))
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 22)
+                .padding(.vertical, 10)
+                .background(Color.white.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .padding(.horizontal, 22)
 
                 Spacer()
@@ -101,9 +120,6 @@ struct ContentView: View {
             PiPController.shared.stop()
         } else {
             PiPController.shared.start()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                BroadcastStarter.shared.askToStart()
-            }
         }
         model.objectWillChange.send()
     }

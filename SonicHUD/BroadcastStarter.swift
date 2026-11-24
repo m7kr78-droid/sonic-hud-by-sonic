@@ -1,40 +1,73 @@
 import ReplayKit
 import UIKit
+import SwiftUI
 
-final class BroadcastStarter: NSObject, RPBroadcastActivityViewControllerDelegate {
+final class BroadcastStarter: NSObject {
     static let shared = BroadcastStarter()
-    private var controller: RPBroadcastController?
+    private weak var picker: RPSystemBroadcastPickerView?
+
+    func bind(_ picker: RPSystemBroadcastPickerView) {
+        self.picker = picker
+        style(picker)
+    }
 
     func askToStart() {
-        guard let host = topController() else { return }
-        RPBroadcastActivityViewController.load { [weak self] picker, _ in
-            guard let self, let picker else { return }
-            picker.delegate = self
-            if let pop = picker.popoverPresentationController {
-                pop.sourceView = host.view
-                pop.sourceRect = CGRect(x: host.view.bounds.midX, y: host.view.bounds.midY, width: 1, height: 1)
-            }
-            host.present(picker, animated: true)
-        }
+        guard let picker else { return }
+        tap(picker)
     }
 
     func stop() {
-        controller?.finishBroadcast { _ in }
-        controller = nil
         GameHzBus.publish(0)
     }
 
-    func broadcastActivityViewController(_ broadcastActivityViewController: RPBroadcastActivityViewController, didFinishWith broadcastController: RPBroadcastController?, error: Error?) {
-        broadcastActivityViewController.dismiss(animated: true)
-        guard let broadcastController, error == nil else { return }
-        self.controller = broadcastController
-        broadcastController.startBroadcast { _ in }
+    static func extensionId() -> String {
+        if let dir = Bundle.main.builtInPlugInsURL,
+           let urls = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil) {
+            for url in urls where url.pathExtension == "appex" {
+                if let id = Bundle(url: url)?.bundleIdentifier, !id.isEmpty {
+                    return id
+                }
+            }
+        }
+        return "com.by.sonic.gamehud.broadcast"
     }
 
-    private func topController() -> UIViewController? {
-        let scene = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first
-        var vc = scene?.windows.first(where: \.isKeyWindow)?.rootViewController
-        while let presented = vc?.presentedViewController { vc = presented }
-        return vc
+    fileprivate func style(_ picker: RPSystemBroadcastPickerView) {
+        picker.preferredExtension = Self.extensionId()
+        picker.showsMicrophoneButton = false
+        picker.backgroundColor = .clear
+        let tint = UIColor(red: 0.18, green: 0.72, blue: 0.42, alpha: 1)
+        picker.tintColor = tint
+        for view in picker.subviews {
+            view.tintColor = tint
+            if let button = view as? UIButton {
+                button.tintColor = tint
+                button.imageView?.tintColor = tint
+            }
+        }
+    }
+
+    fileprivate func tap(_ picker: RPSystemBroadcastPickerView) {
+        func buttons(in view: UIView) -> [UIButton] {
+            var found = [UIButton]()
+            if let button = view as? UIButton { found.append(button) }
+            for child in view.subviews { found.append(contentsOf: buttons(in: child)) }
+            return found
+        }
+        for button in buttons(in: picker) {
+            button.sendActions(for: .touchUpInside)
+        }
+    }
+}
+
+struct BroadcastPickerView: UIViewRepresentable {
+    func makeUIView(context: Context) -> RPSystemBroadcastPickerView {
+        let picker = RPSystemBroadcastPickerView(frame: CGRect(x: 0, y: 0, width: 56, height: 56))
+        BroadcastStarter.shared.bind(picker)
+        return picker
+    }
+
+    func updateUIView(_ uiView: RPSystemBroadcastPickerView, context: Context) {
+        BroadcastStarter.shared.bind(uiView)
     }
 }
