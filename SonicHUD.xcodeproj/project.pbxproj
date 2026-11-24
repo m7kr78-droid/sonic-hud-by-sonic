@@ -21,6 +21,9 @@
 		A100000000000000000012 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000000000000000011 /* SampleHandler.swift */; };
 		A100000000000000000013 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A200000000000000000013 /* ReplayKit.framework */; };
 		A100000000000000000014 /* SonicHUDBroadcast.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A200000000000000000012 /* SonicHUDBroadcast.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A100000000000000000015 /* GameHz.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000000000000000015 /* GameHz.swift */; };
+		A100000000000000000016 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A200000000000000000017 /* Security.framework */; };
+		A100000000000000000017 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A200000000000000000017 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +67,7 @@
 		A200000000000000000014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A200000000000000000015 /* GameHz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHz.swift; sourceTree = "<group>"; };
 		A200000000000000000016 /* BroadcastStarter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastStarter.swift; sourceTree = "<group>"; };
+		A200000000000000000017 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 				A100000000000000000007 /* AVKit.framework in Frameworks */,
 				A100000000000000000008 /* AVFoundation.framework in Frameworks */,
 				A100000000000000000011 /* ReplayKit.framework in Frameworks */,
+				A100000000000000000016 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A100000000000000000013 /* ReplayKit.framework in Frameworks */,
+				A100000000000000000017 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +126,7 @@
 				A200000000000000000007 /* AVKit.framework */,
 				A200000000000000000008 /* AVFoundation.framework */,
 				A200000000000000000013 /* ReplayKit.framework */,
+				A200000000000000000017 /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -249,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A100000000000000000012 /* SampleHandler.swift in Sources */,
+				A100000000000000000015 /* GameHz.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,16 +318,18 @@
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = SonicHUD/SonicHUD.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SonicHUD/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "sonic hud";
+				SWIFT_OBJC_BRIDGING_HEADER = "SonicHUD/SonicHUD-Bridging-Header.h";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.by.sonic.gamehud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -338,16 +348,18 @@
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_ENTITLEMENTS = SonicHUD/SonicHUD.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SonicHUD/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "sonic hud";
+				SWIFT_OBJC_BRIDGING_HEADER = "SonicHUD/SonicHUD-Bridging-Header.h";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.by.sonic.gamehud;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -364,16 +376,18 @@
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
+				CODE_SIGN_ENTITLEMENTS = SonicHUDBroadcast/SonicHUDBroadcast.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SonicHUDBroadcast/Info.plist;
+				SWIFT_OBJC_BRIDGING_HEADER = "SonicHUDBroadcast/SonicHUDBroadcast-Bridging-Header.h";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.by.sonic.gamehud.broadcast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -389,16 +403,18 @@
 				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
+				CODE_SIGN_ENTITLEMENTS = SonicHUDBroadcast/SonicHUDBroadcast.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SonicHUDBroadcast/Info.plist;
+				SWIFT_OBJC_BRIDGING_HEADER = "SonicHUDBroadcast/SonicHUDBroadcast-Bridging-Header.h";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.by.sonic.gamehud.broadcast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

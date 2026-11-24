@@ -11,6 +11,7 @@ final class HUDModel: ObservableObject {
 
     func start() {
         UIApplication.shared.isIdleTimerDisabled = true
+        GameHzBus.startHost()
         tick()
         timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
             self?.tick()
@@ -51,10 +52,10 @@ struct ContentView: View {
                 .padding(.horizontal, 16)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("شغّل العرض يطلع مربع صغير فوق اللعبة. هيرتز اللعبة من زر التسجيل الأخضر تحت، تختار sonic hud من قائمة الآيفون.")
+                    Text("الهيرتز يبقى -- لين يبدأ البث. شغّل العرض، بعدين من قائمة التسجيل اختر sonic hud. الشريط الأحمر لازم يبقى وأنت بلعبة.")
                         .font(.system(size: 16))
                         .foregroundColor(Color.white.opacity(0.78))
-                    Text("إذا طلعت صفحة Live Stream من آب ستور، ارجع واضغط زر التسجيل الأخضر. لا تختار شيء من المتجر.")
+                    Text("إذا طلعت صفحة Live Stream من آب ستور، ارجع واضغط الدائرة الخضراء. لا تختار شيء من المتجر.")
                         .font(.system(size: 14))
                         .foregroundColor(Color.white.opacity(0.5))
                 }
@@ -120,6 +121,9 @@ struct ContentView: View {
             PiPController.shared.stop()
         } else {
             PiPController.shared.start()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                BroadcastStarter.shared.askToStart()
+            }
         }
         model.objectWillChange.send()
     }
